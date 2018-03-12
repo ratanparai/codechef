@@ -2,7 +2,7 @@ cc_test(
     name = "test",
     srcs = ["sample_test.cpp"],
     deps = [
-        "//libtest",
+        "//src:libmain",
         "@googletest//:gtest_main",
     ],
 )

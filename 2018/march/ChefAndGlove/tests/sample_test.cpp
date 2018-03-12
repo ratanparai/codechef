@@ -3,17 +3,17 @@
 //
 
 #include "gtest/gtest.h"
-#include "libtest/calc.h"
+#include "src/libmain.h"
 
 
 TEST(example, failed_test)
 {
-    EXPECT_TRUE(false);
+    EXPECT_TRUE(true);
 }
 
 TEST(example, libtest_example)
 {
-    EXPECT_EQ(4, mul(2,2));
+    EXPECT_EQ(8, add(4,4));
 }
 
 
