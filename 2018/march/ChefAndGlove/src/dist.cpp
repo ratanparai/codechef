@@ -1,12 +1,9 @@
-//
-// Created by ratanparai on 3/11/18.
-//
-
 #include <iostream>
-#include "src/libmain.h"
-
 using namespace std;
-
+int add(int numberOne, int numberTwo)
+{
+    return numberOne + numberTwo;
+}
 int main()
 {
     cout << "Hello World!" << endl;
@@ -16,6 +13,3 @@ int main()
 
     return EXIT_SUCCESS;
 }
-
-
-

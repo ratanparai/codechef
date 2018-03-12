@@ -4,8 +4,8 @@ cc_binary(
 )
 
 cc_library(
-    name = "PrimeNumber",
-    srcs = ["main.cpp"],
-    hdrs = ["main.h"],
+    name = "libmain",
+    srcs = ["libmain.cpp"],
+    hdrs = ["libmain.h"],
     visibility = ["//visibility:public"],
 )
