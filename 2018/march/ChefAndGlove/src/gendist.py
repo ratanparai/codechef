@@ -6,7 +6,8 @@ def all_in_one():
     print("Starting processing the source code...")
     delete_old_dist_file()
 
-    all_code_files = glob.glob("*.cpp")
+    cpp_file_path_glob = os.path.dirname(os.path.abspath(__file__)) + "/*.cpp"
+    all_code_files = glob.glob(cpp_file_path_glob)
 
     all_lines = []
 
@@ -20,12 +21,16 @@ def all_in_one():
     extract_main_method(all_lines, main_method)
 
     all_header_lines = []
-    methods_from_header_files= []
+    methods_from_header_files = []
 
     extract_other_method_signature_from_header_file(all_header_lines, methods_from_header_files)
     extract_other_methods(all_lines, methods_from_header_files, other_method)
 
-    write_to_dist_file(includes, main_method, other_method, usings)
+    # write_file_path = os.path.dirname(os.path.abspath(__file__)) + "/dist.c"
+    # write_to_dist_file(includes, main_method, other_method, usings, write_file_path)
+    #
+    # write_to_dist_file(includes, main_method, other_method, usings, "src/dist.c")
+    write_to_dist_file(includes, main_method, other_method, usings, "dist.cpp")
 
 
 def extract_main_method(all_lines, main_method):
@@ -56,7 +61,9 @@ def extracts_includes(all_code_files, all_lines, includes, usings):
 
 
 def extract_other_method_signature_from_header_file(all_header_lines,methods_from_header_files):
-    header_files = glob.glob("*.h")
+    header_file_glob = os.path.dirname(os.path.abspath(__file__)) + "/*.h"
+    print(header_file_glob)
+    header_files = glob.glob(header_file_glob)
     for h_file in header_files:
         with open(h_file) as f:
             all_header_lines += f.readlines()
@@ -85,9 +92,9 @@ def extract_other_methods(all_lines, methods_from_header_files, other_method):
                     break
 
 
-def write_to_dist_file(includes, main_method, other_method, usings):
+def write_to_dist_file(includes, main_method, other_method, usings, write_file_path):
     print("generating new dist.cpp file")
-    with open("dist.cpp", "w") as f:
+    with open(write_file_path, "w") as f:
         f.writelines(includes)
         f.writelines(usings)
         f.writelines(other_method)
@@ -96,7 +103,8 @@ def write_to_dist_file(includes, main_method, other_method, usings):
 
 
 def delete_old_dist_file():
-    if os.path.isfile("dist.cpp"):
+    dist_file_path = os.path.dirname(os.path.abspath(__file__)) + "/dist.cpp"
+    if os.path.isfile(dist_file_path):
         try:
             print("file found. now deleting..")
             os.remove("dist.cpp")
